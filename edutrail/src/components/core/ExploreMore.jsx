@@ -76,3 +76,4 @@ const tabsName = [
   
 
 export default Explore
+
