@@ -3,7 +3,7 @@ import React from 'react'
 import { HiOutlineVideoCamera } from "react-icons/hi"
 
 
-const courseBuyingSubSection = ({ subSec }) => {
+const CourseBuyingSubSection = ({ subSec }) => {
     return (
         <div>
           <div className="flex justify-between py-2">
@@ -18,4 +18,4 @@ const courseBuyingSubSection = ({ subSec }) => {
       )
 }
 
-export default courseBuyingSubSection
+export default CourseBuyingSubSection;
