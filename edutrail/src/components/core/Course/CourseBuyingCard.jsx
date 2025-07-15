@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { AiOutlineDown } from "react-icons/ai"
 import { PiCourtBasketballDuotone } from 'react-icons/pi'
-import CourseBuyingSubSection from './courseBuyingSubSection'
+import courseBuyingSubSection from './courseBuyingSubSection'
 
 const CourseBuyingCard = ({ course, isActive, handleActive }) => {
     const contentEl = useRef(null)
@@ -52,7 +52,7 @@ const CourseBuyingCard = ({ course, isActive, handleActive }) => {
         >
           <div className="text-textHead flex flex-col gap-2 px-7 py-6 font-semibold">
             {course?.subSection?.map((subSec, i) => {
-             return <CourseBuyingSubSection subSec={subSec} key={i}/>
+             return <courseBuyingSubSection subSec={subSec} key={i}/>
             })}
           </div>
         </div>
