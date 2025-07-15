@@ -13,7 +13,7 @@ import formattedDate from '../utils/dateFormatter';
 import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import Footer from '../components/common/footer';
-import courseBuyingSubSection from '../components/core/Course/courseBuyingSubSection';
+import CourseBuyingSubSection from '../components/core/Course/CourseBuyingSubSection';
 import CourseBuyingCard from '../components/core/Course/CourseBuyingCard';
 import ViewCourse from './ViewCourse';
 const CourseDetails = () => {
@@ -21,7 +21,7 @@ const CourseDetails = () => {
   const {user} = useSelector((state)=> state.profile);
   const {token} = useSelector((state)=> state.auth);
   const {loading}= useSelector((state) => state.profile);
-  const{paymentLoading} = useSelector((state) => state.course);
+  const{ paymentLoading } = useSelector((state) => state.course);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   
@@ -54,6 +54,9 @@ const CourseDetails = () => {
   
 
   const [ totalNoOfLectures, setTotalNoOfLectures]= useState(0);
+
+
+  
   useEffect(()=>{
     let lectures= 0;
     courseDetails?.data?.courseContent?.forEach((sec) =>
