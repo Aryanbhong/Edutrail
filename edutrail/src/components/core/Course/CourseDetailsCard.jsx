@@ -108,3 +108,6 @@ const CourseDetailsCard = ({course, setConfirmationModal, handleBuyCourse}) => {
 }
 
 export default CourseDetailsCard
+
+
+

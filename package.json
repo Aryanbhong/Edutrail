@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "frontend": "cd edutrail && npm run dev",
     "backend": "cd Backend && node index.js",
+   "build": "npm install --prefix Backend && npm install --prefix edutrail && npm run build --prefix edutrail",
+    "start": "cd Backend && node index.js",
     "dev": "concurrently -n \"frontend,backend\" -c \"bgBlue,bgYellow\" \"npm run frontend\" \"npm run backend\""
   },
   "keywords": [],
@@ -20,6 +22,7 @@
     "concurrently": "^9.1.2",
     "copy-to-clipboard": "^3.3.3",
     "dotenv": "^16.4.7",
+    "nodemon": "^3.1.10",
     "react-chartjs-2": "^5.3.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dropzone": "^14.3.5",

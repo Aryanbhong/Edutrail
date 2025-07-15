@@ -1,48 +1,48 @@
 import React from "react";
 import CTButton from "../Button";
 
-const LearnData =[
-    {
-        order: -1,
-        heading: "World-Class Learning for",
-        colorText: "Anyone, Anywhere",
-        description:
-        "EduTrail partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organization worldwide",
-        BtnText: "Learn More",
-        BtnLink: "/",
+const LearnData = [
+  {
+    order: -1,
+    heading: "Learning Made Simple for",
+    colorText: " Everyone, Everywhere",
+    description:
+      "EduTrail is designed to make learning straightforward and accessible. Whether you're a beginner or someone looking to brush up on concepts, we provide clear explanations and practical content that fits your schedule.",
+    BtnText: "Learn More",
+    BtnLink: "/",
+  },
+  {
+    order: 1,
+    heading: "Beginner-Friendly Curriculum",
+    description:
+      "Our courses are structured with simplicity in mind — easy to follow, jargon-free, and focused on helping you understand the 'why' behind what you learn.",
+  },
+  {
+    order: 2,
+    heading: "Concept-Focused Learning",
+    description:
+      "We focus on delivering strong foundational understanding. Our goal is to help you build real knowledge, not just memorize facts.",
+  },
+  {
+    order: 3,
+    heading: "Consistent Learning Support",
+    description:
+      "We may be small now, but we care deeply about our learners. If you're stuck or confused, we're here to listen and improve based on your feedback.",
+  },
+  {
+    order: 4,
+    heading: "Learn at Your Own Pace",
+    description:
+      "No deadlines. No pressure. Just learning when you want, how you want. EduTrail lets you grow on your own terms.",
+  },
+  {
+    order: 5,
+    heading: "Growing With You",
+    description:
+      "We're continuously adding new topics, improving content, and building features — all based on what you need most as a learner.",
+  },
+];
 
-    },
-    {
-        order: 1,
-        heading: "Curriculum Based on Industry Needs",
-        description:
-          "Save time and money! The Belajar curriculum is made to be easier to understand and in line with industry needs.",
-      },
-      {
-        order: 2,
-        heading: "Our Learning Methods",
-        description:
-          "EduTrail partners with more than 275+ leading universities and companies to bring",
-      },
-      {
-        order: 3,
-        heading: "Certification",
-        description:
-          "EduTrail partners with more than 275+ leading universities and companies to bring",
-      },
-      {
-        order: 4,
-        heading: `Rating "Auto-grading"`,
-        description:
-          "EduTrail partners with more than 275+ leading universities and companies to bring",
-      },
-      {
-        order: 5,
-        heading: "Ready to Work",
-        description:
-          "EduTrail partners with more than 275+ leading universities and companies to bring",
-      },
-]
 
 const GridLearning = () => {
     return (

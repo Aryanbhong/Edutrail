@@ -137,7 +137,7 @@ const Home =()=>{
 </div>
 {/* <section-2>--------</section-2> */}
 
-<div className="bg-pure-greys-5 mb-32 text-richblack-700">
+{/* <div className="bg-pure-greys-5 mb-32 text-richblack-700">
     <div className="homepage_bg h-[333px]">
   
   <div className="w-11/12 max-w-maxContent flex flex-col items-center gap-5 mx-auto">
@@ -188,7 +188,51 @@ const Home =()=>{
 
 
 
+</div> */}
+<div className="bg-gradient-to-b from-white via-blue-50 to-green-50 text-richblack-800 py-10">
+  {/* Hero Section */}
+  <div className="homepage_bg h-[333px] flex items-center">
+    <div className="w-11/12 max-w-maxContent mx-auto flex flex-col items-center gap-6">
+      <div className="flex flex-row gap-5 text-white">
+        <CButton active={true} linkto={"/signup"}>
+          <div className="flex items-center gap-2"> 
+            Explore Full Catalog
+            <FaArrowAltCircleRight className="text-lg" />
+          </div>
+        </CButton>
+        <CButton active={false} linkto={"/signup"}>
+          <div>Learn More</div>
+        </CButton>
+      </div>
+    </div>
+  </div>
+
+  {/* Skills Section */}
+  <div className="mx-auto w-11/12 max-w-maxContent mt-20 mb-20">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-10">
+      <div className="w-full md:w-[48%] text-center md:text-left">
+        <h2 className="text-3xl md:text-4xl font-extrabold leading-snug">
+          Get the <span className="text-blue-600">Skills</span> you need for a <span className="text-green-600">Job that is in demand</span>
+        </h2>
+      </div>
+      <div className="w-full md:w-[45%] flex flex-col gap-6 items-start">
+        <p className="text-base text-richblack-600">
+          The modern EduTrail sets its own path. Today, being a competitive professional requires more than just textbook knowledge.
+        </p>
+        <CButton active={true} linkto={"/signup"}>
+          <span className="px-4 py-2 text-white font-medium">Learn More</span>
+        </CButton>
+      </div>
+    </div>
+  </div>
+
+  {/* Timeline Section */}
+  <TimeLineSection />
+
+  {/* Language Learning Section */}
+  <LanguageLearning />
 </div>
+
 {/* section 3 */}
 
 <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
