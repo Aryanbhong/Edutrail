@@ -28,12 +28,12 @@ const courseRoutes = require("../Backend/routes/Course")
 const ContactRoute = require("../Backend/routes/Contact")
 
 app.use(cookieParser());
-// app.use(
-//     cors({
-//         origin:"http://localhost:3000",
-//         credentials:true,
-//     })
-// )
+app.use(
+    cors({
+        origin:"https://edutrail-2.onrender.com/",
+        credentials:true,
+    })
+)
 app.use(
     fileUpload({
         useTempFiles:true,
