@@ -1,8 +1,9 @@
 # Edutrail
 
 
-EduTrail is a full-stack e-learning platform built to simplify online education. Users can sign up,
-browse a variety of courses, enroll through a secure payment system, and track their learning progress through a personal dashboard.
+EduTrail is a full-stack e-learning platform that connects students and instructors in one place. Users can sign up as either a student or an instructor.
 
-The platform features secure authentication using JWT, course management, and Razorpay integration for smooth transactions. 
-EduTrail aims to deliver a seamless and user-friendly learning experience for both students and course providers.
+Students can browse available courses, enroll through secure Razorpay payments, and track their learning progress.
+Instructors can create and manage courses, making their content accessible to learners.
+
+The platform includes JWT-based authentication, role-based access control, and a user-friendly dashboard for both roles. EduTrail is designed to make online learning simple, secure, and scalable.
