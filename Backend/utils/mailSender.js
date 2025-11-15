@@ -28,34 +28,39 @@
 // }
 
 // module.exports = mailSender;
-
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 const mailSender = async (email, title, body) => {
-  try {
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS
-      }
-    });
+    try {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+            },
+            requireTLS: true,
+            connectionTimeout: 8000,
+            greetingTimeout: 8000,
+            socketTimeout: 8000,
+        });
 
-    let info = await transporter.sendMail({
-      from: `Edutrail <${process.env.MAIL_USER}>`,
-      to: email,
-      subject: title,
-      html: body,
-    });
+        // Check SMTP connection
+        await transporter.verify();
 
-    console.log("Email sent:", info.messageId);
-    return info;
-  } catch (error) {
-    console.log("SMTP ERROR:", error);
-    return null;
-  }
-}
+        let info = await transporter.sendMail({
+            from: `"Edutrail" <${process.env.MAIL_USER}>`,
+            to: email,
+            subject: title,
+            html: body,
+        });
+
+        return info;
+    } catch (error) {
+        console.log("MAIL ERROR:", error);
+        throw error;
+    }
+};
 
 module.exports = mailSender;
