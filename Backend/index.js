@@ -30,7 +30,7 @@ const ContactRoute = require("../Backend/routes/Contact")
 app.use(cookieParser());
 app.use(
     cors({
-        origin:"https://edutrail-2.onrender.com/",
+        origin:"https://edutrail-1.onrender.com",
         credentials:true,
     })
 )
