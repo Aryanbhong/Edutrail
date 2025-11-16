@@ -28,34 +28,97 @@
 // }
 
 // module.exports = mailSender;
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
+
+// const mailSender = async (email, title, body) => {
+//     try {
+//         const transporter = nodemailer.createTransport({
+//             host: "smtp.gmail.com",
+//             port: 587,
+//             secure: false,
+//             auth: {
+//                 user: process.env.MAIL_USER,
+//                 pass: process.env.MAIL_PASS,
+//             },
+//             requireTLS: true,
+//             connectionTimeout: 8000,
+//             greetingTimeout: 8000,
+//             socketTimeout: 8000,
+//         });
+
+//         // Check SMTP connection
+//         await transporter.verify();
+
+//         let info = await transporter.sendMail({
+//             from: `"Edutrail" <${process.env.MAIL_USER}>`,
+//             to: email,
+//             subject: title,
+//             html: body,
+//         });
+
+//         return info;
+//     } catch (error) {
+//         console.log("MAIL ERROR:", error);
+//         throw error;
+//     }
+// };
+
+// module.exports = mailSender; 
+
+
+
+// const nodemailer = require('nodemailer');
+
+// const mailSender = async (email, title, body) => {
+//     try{
+//             let transporter = nodemailer.createTransport({
+//                 host:process.env.MAIL_HOST,
+//                 auth:{
+//                     user: process.env.MAIL_USER,
+//                     pass: process.env.MAIL_PASS,
+//                 }
+//             })
+
+
+//             let info = await transporter.sendMail({
+//                 from: 'Edutrail || aryan ',
+//                 to:`${email}`,
+//                 subject: `${title}`,
+//                 html: `${body}`,
+//             })
+//             console.log(info);
+//             return info;
+//     }
+//     catch(error) {
+//         console.log(error.message);
+//     }
+// }
+
+// module.exports = mailSender;
+
+
+const nodemailer = require('nodemailer');
 
 const mailSender = async (email, title, body) => {
     try {
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
+        let transporter = nodemailer.createTransport({
+            host: "in-v3.mailjet.com",
             port: 587,
             secure: false,
             auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS,
+                user: process.env.MJ_APIKEY_PUBLIC,     // Mailjet Public Key
+                pass: process.env.MJ_APIKEY_PRIVATE,    // Mailjet Private Key
             },
-            requireTLS: true,
-            connectionTimeout: 8000,
-            greetingTimeout: 8000,
-            socketTimeout: 8000,
         });
 
-        // Check SMTP connection
-        await transporter.verify();
-
         let info = await transporter.sendMail({
-            from: `"Edutrail" <${process.env.MAIL_USER}>`,
+            from: `"Edutrail | Aryan" <${process.env.MJ_SENDER_EMAIL}>`,
             to: email,
             subject: title,
             html: body,
         });
 
+        console.log("MAIL SENT:", info.messageId);
         return info;
     } catch (error) {
         console.log("MAIL ERROR:", error);
@@ -64,3 +127,4 @@ const mailSender = async (email, title, body) => {
 };
 
 module.exports = mailSender;
+
