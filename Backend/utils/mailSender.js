@@ -96,35 +96,44 @@
 
 // module.exports = mailSender;
 
-
-const nodemailer = require('nodemailer');
+const axios = require("axios");
 
 const mailSender = async (email, title, body) => {
     try {
-        let transporter = nodemailer.createTransport({
-            host: "in-v3.mailjet.com",
-            port: 587,
-            secure: false,
-            auth: {
-                user: process.env.MJ_APIKEY_PUBLIC,     // Mailjet Public Key
-                pass: process.env.MJ_APIKEY_PRIVATE,    // Mailjet Private Key
+        const response = await axios.post(
+            "https://api.mailjet.com/v3.1/send",
+            {
+                Messages: [
+                    {
+                        From: {
+                            Email: process.env.MJ_SENDER_EMAIL,
+                            Name: "Edutrail | Aryan",
+                        },
+                        To: [
+                            {
+                                Email: email,
+                            },
+                        ],
+                        Subject: title,
+                        HTMLPart: body,
+                    },
+                ],
             },
-        });
+            {
+                auth: {
+                    username: process.env.MJ_APIKEY_PUBLIC,  // Public Key
+                    password: process.env.MJ_APIKEY_PRIVATE, // Private Key
+                },
+                timeout: 10000,
+            }
+        );
 
-        let info = await transporter.sendMail({
-            from: `"Edutrail | Aryan" <${process.env.MJ_SENDER_EMAIL}>`,
-            to: email,
-            subject: title,
-            html: body,
-        });
-
-        console.log("MAIL SENT:", info.messageId);
-        return info;
+        console.log("MAIL SENT:", response.data.Messages[0].Status);
+        return response.data;
     } catch (error) {
-        console.log("MAIL ERROR:", error);
-        throw error;
+        console.error("MAIL ERROR:", error.response?.data || error.message);
+        throw new Error("Failed to send email");
     }
 };
 
 module.exports = mailSender;
-
