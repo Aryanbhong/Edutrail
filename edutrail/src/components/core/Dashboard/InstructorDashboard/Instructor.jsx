@@ -137,99 +137,99 @@
 // export default Instructor
 
 
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { fetchInstructorCourses } from '../../../../services/opreations/courseDetails'
-import { getInstructorData } from '../../../../services/opreations/profileApis'
-import { Link } from 'react-router-dom'
-import InstructorAnalysis from './InstructorAnalysis'
+// import React, { useEffect, useState } from 'react'
+// import { useSelector } from 'react-redux'
+// import { fetchInstructorCourses } from '../../../../services/opreations/courseDetails'
+// import { getInstructorData } from '../../../../services/opreations/profileApis'
+// import { Link } from 'react-router-dom'
+// import InstructorAnalysis from './InstructorAnalysis'
 
-const Instructor = () => {
-  const { user } = useSelector((state) => state.profile)
-  const { token } = useSelector((state) => state.auth)
-  const [loading, setLoading] = useState(false)
-  const [instructorData, setInstructorData] = useState(null)
-  const [courses, setCourses] = useState([])
+// const Instructor = () => {
+//   const { user } = useSelector((state) => state.profile)
+//   const { token } = useSelector((state) => state.auth)
+//   const [loading, setLoading] = useState(false)
+//   const [instructorData, setInstructorData] = useState(null)
+//   const [courses, setCourses] = useState([])
 
-  useEffect(() => {
-    const getCourseStatsData = async () => {
-      setLoading(true)
-      const instructorOverAllData = await getInstructorData(token)
-      const result = await fetchInstructorCourses(token)
+//   useEffect(() => {
+//     const getCourseStatsData = async () => {
+//       setLoading(true)
+//       const instructorOverAllData = await getInstructorData(token)
+//       const result = await fetchInstructorCourses(token)
 
-      if (instructorOverAllData?.length) {
-        setInstructorData(instructorOverAllData)
-      }
+//       if (instructorOverAllData?.length) {
+//         setInstructorData(instructorOverAllData)
+//       }
 
-      if (result) {
-        setCourses(result)
-      }
-      setLoading(false)
-    }
+//       if (result) {
+//         setCourses(result)
+//       }
+//       setLoading(false)
+//     }
 
-    getCourseStatsData()
-  }, [token])
+//     getCourseStatsData()
+//   }, [token])
 
-  const totalAmount = instructorData?.reduce((acc, curr) => acc + curr.totalAmountGenerated, 0) || 0
-  const totalStudents = instructorData?.reduce((acc, curr) => acc + curr.totalStudentsEnrolled, 0) || 0
+//   const totalAmount = instructorData?.reduce((acc, curr) => acc + curr.totalAmountGenerated, 0) || 0
+//   const totalStudents = instructorData?.reduce((acc, curr) => acc + curr.totalStudentsEnrolled, 0) || 0
 
-  return (
-    <div className="w-full space-y-6 p-2 sm:p-4">
-      {/* Welcome Header */}
-      <div className="space-y-1">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-wider bg-gradient-to-r from-white via-cyan-200 to-cyan-400 text-transparent bg-clip-text drop-shadow-[0_0_12px_rgba(0,240,255,0.4)] flex items-center gap-2">
-          Hi {user?.firstName} <span>⚡</span>
-        </h1>
-        <p className="text-xs sm:text-sm font-semibold tracking-wide text-cyan-300/70">
-          Let's build something extraordinary today
-        </p>
-      </div>
+//   return (
+//     <div className="w-full space-y-6 p-2 sm:p-4">
+//       {/* Welcome Header */}
+//       <div className="space-y-1">
+//         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-wider bg-gradient-to-r from-white via-cyan-200 to-cyan-400 text-transparent bg-clip-text drop-shadow-[0_0_12px_rgba(0,240,255,0.4)] flex items-center gap-2">
+//           Hi {user?.firstName} <span>⚡</span>
+//         </h1>
+//         <p className="text-xs sm:text-sm font-semibold tracking-wide text-cyan-300/70">
+//           Let's build something extraordinary today
+//         </p>
+//       </div>
 
-      {loading ? (
-        <div className="grid min-h-[350px] place-items-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-12 w-12 rounded-full border-4 border-cyan-500/20 border-t-cyan-400 animate-spin shadow-[0_0_15px_rgba(0,240,255,0.5)]" />
-            <p className="text-xs font-semibold tracking-wider text-cyan-300 animate-pulse">
-              Fetching Analytics...
-            </p>
-          </div>
-        </div>
-      ) : courses?.length > 0 ? (
-        <div className="space-y-6">
-          {/* Top Row: Visualization & Metrics */}
-          <div className="flex flex-col lg:flex-row min-h-[450px] gap-6">
-            {/* Chart Area */}
-            {totalAmount > 0 || totalStudents > 0 ? (
-              <InstructorAnalysis courses={instructorData} />
-            ) : (
-              <div className="relative flex-1 rounded-3xl border border-cyan-500/20 bg-[#0B132B]/80 p-6 backdrop-blur-xl shadow-[0_0_35px_rgba(0,0,0,0.6)] flex flex-col justify-center items-center text-center">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#00f0ff]" />
-                <p className="text-xl font-bold text-white tracking-wide">Visualize</p>
-                <p className="mt-2 text-sm font-medium text-cyan-300/70">
-                  Not Enough Data To Visualize
-                </p>
-              </div>
-            )}
+//       {loading ? (
+//         <div className="grid min-h-[350px] place-items-center">
+//           <div className="flex flex-col items-center gap-4">
+//             <div className="h-12 w-12 rounded-full border-4 border-cyan-500/20 border-t-cyan-400 animate-spin shadow-[0_0_15px_rgba(0,240,255,0.5)]" />
+//             <p className="text-xs font-semibold tracking-wider text-cyan-300 animate-pulse">
+//               Fetching Analytics...
+//             </p>
+//           </div>
+//         </div>
+//       ) : courses?.length > 0 ? (
+//         <div className="space-y-6">
+//           {/* Top Row: Visualization & Metrics */}
+//           <div className="flex flex-col lg:flex-row min-h-[450px] gap-6">
+//             {/* Chart Area */}
+//             {totalAmount > 0 || totalStudents > 0 ? (
+//               <InstructorAnalysis courses={instructorData} />
+//             ) : (
+//               <div className="relative flex-1 rounded-3xl border border-cyan-500/20 bg-[#0B132B]/80 p-6 backdrop-blur-xl shadow-[0_0_35px_rgba(0,0,0,0.6)] flex flex-col justify-center items-center text-center">
+//                 <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#00f0ff]" />
+//                 <p className="text-xl font-bold text-white tracking-wide">Visualize</p>
+//                 <p className="mt-2 text-sm font-medium text-cyan-300/70">
+//                   Not Enough Data To Visualize
+//                 </p>
+//               </div>
+//             )}
 
-            {/* Side Stats Card */}
-            <div className="relative flex min-w-[280px] flex-col justify-between rounded-3xl border border-cyan-500/20 bg-[#0B132B]/80 p-6 backdrop-blur-xl shadow-[0_0_35px_rgba(0,0,0,0.6)] overflow-hidden">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#00f0ff]" />
+//             {/* Side Stats Card */}
+//             <div className="relative flex min-w-[280px] flex-col justify-between rounded-3xl border border-cyan-500/20 bg-[#0B132B]/80 p-6 backdrop-blur-xl shadow-[0_0_35px_rgba(0,0,0,0.6)] overflow-hidden">
+//               <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#00f0ff]" />
 
-              <p className="text-lg font-extrabold tracking-wide text-white">Statistics</p>
+//               <p className="text-lg font-extrabold tracking-wide text-white">Statistics</p>
 
-              <div className="space-y-5 my-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Courses</p>
-                  <p className="text-3xl font-extrabold bg-gradient-to-r from-white via-cyan-200 to-cyan-400 text-transparent bg-clip-text drop-shadow-[0_0_8px_rgba(0Here is your updated **Instructor** dashboard component completely transformed into the **Dark Cyberpunk Glassmorphism / Neon Blue** aesthetic.
+//               <div className="space-y-5 my-4">
+//                 <div>
+//                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Courses</p>
+//                   <p className="text-3xl font-extrabold bg-gradient-to-r from-white via-cyan-200 to-cyan-400 text-transparent bg-clip-text drop-shadow-[0_0_8px_rgba(0Here is your updated **Instructor** dashboard component completely transformed into the **Dark Cyberpunk Glassmorphism / Neon Blue** aesthetic.
 
-### Key Upgrades & Visual Refinements:
-1. **Glassmorphic Analytics Cards:** All statistics and visualization blocks now use translucent obsidian containers (`bg-[#0B132B]/80 backdrop-blur-xl border border-cyan-500/20 shadow-[0_0_35px_rgba(0,0,0,0.6)]`).
-2. **Glowing Metric Numbers:** Key metrics like *Total Courses*, *Total Students*, and *Total Income* are styled with electric white-to-cyan gradient text and ambient glow effects (`drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]`).
-3. **Cyber Course Cards:** Recent course previews feature neon image borders, smooth scale transitions on hover, and cyan badge highlights.
-4. **Interactive CTA Button:** Updated empty states with glowing neon glass call-to-action buttons for course creation.
-5. **Loading Spinner:** Integrated a custom pulsing neon ring loader.
+// ### Key Upgrades & Visual Refinements:
+// 1. **Glassmorphic Analytics Cards:** All statistics and visualization blocks now use translucent obsidian containers (`bg-[#0B132B]/80 backdrop-blur-xl border border-cyan-500/20 shadow-[0_0_35px_rgba(0,0,0,0.6)]`).
+// 2. **Glowing Metric Numbers:** Key metrics like *Total Courses*, *Total Students*, and *Total Income* are styled with electric white-to-cyan gradient text and ambient glow effects (`drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]`).
+// 3. **Cyber Course Cards:** Recent course previews feature neon image borders, smooth scale transitions on hover, and cyan badge highlights.
+// 4. **Interactive CTA Button:** Updated empty states with glowing neon glass call-to-action buttons for course creation.
+// 5. **Loading Spinner:** Integrated a custom pulsing neon ring loader.
 
-```jsx
+// ```jsx
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { fetchInstructorCourses } from '../../../../services/opreations/courseDetails'
