@@ -1,185 +1,247 @@
-import React, { useState } from "react";
-import { FaEye,FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { sendOtp, signUp } from "../services/opreations/authApis";
-import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { setSignupData } from "../slices/authSlice";
-import {ACCOUNT_TYPE} from  "../utils/Permanents"
-import Tab from "../components/common/Tab";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import React, { useState } from "react"
+import { FaEye, FaEyeSlash, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa"
+import { HiOutlineMail, HiOutlineUser } from "react-icons/hi"
+import { useNavigate } from "react-router-dom"
+import { sendOtp } from "../services/opreations/authApis"
+import { toast } from "react-hot-toast"
+import { useDispatch } from "react-redux"
+import { setSignupData } from "../slices/authSlice"
+import { ACCOUNT_TYPE } from "../utils/Permanents"
+import Tab from "../components/common/Tab"
 
+const Signupform = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-
-const Signupform=()=>{
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
 
-    const[formData,setFormData]=useState({
-        firstName:"",lastName:"",
-        email:"",password:"",
-        confirmpassword:""
-    })
-  
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+  })
 
-   
-    function ChangeHandler(event){
-        setFormData((prevData)=>({
-            ...prevData,
-            [event.target.name]:event.target.value
-        }))
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const { password, confirmpassword } = formData
+
+  const ChangeHandler = (event) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }))
+  }
+
+  const submitHandler = (event) => {
+    event.preventDefault()
+
+    if (password !== confirmpassword) {
+      toast.error("Passwords do not match")
+      return
     }
-      
-    const[showPassword,SetShowPassword]=useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-    const {password,confirmpassword} = formData
-     
-    const submitHandler = (e) => {
-        e.preventDefault()
-    
-        if (password !== confirmpassword) {
-          toast.error("Passwords Do Not Match")
-          return
-        }
-        const signupData = {
-          ...formData,
-          accountType,
-        }
-        
-        // Setting signup data to state
-        // To be used after otp verification
-        dispatch(setSignupData(signupData))
-        // Send OTP to user for verification
-        dispatch(sendOtp(formData.email,navigate))
-    
-        // Reset
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          confirmpassword: "",
-        })
-        setAccountType(ACCOUNT_TYPE.STUDENT);
-       
-      }
-      const tabData = [
-        {
-          id: 1,
-          tabName: "Student",
-          type: ACCOUNT_TYPE.STUDENT,
-        },
-        {
-          id: 2,
-          tabName: "Instructor",
-          type: ACCOUNT_TYPE.INSTRUCTOR,
-        },
-      ]
-    return(
-        <div>
-       
-        {/* Tab */}
-      <Tab tabData={tabData} field={accountType} setField={ setAccountType} />
+    const signupData = {
+      ...formData,
+      accountType,
+    }
 
-        <form onSubmit={submitHandler}  className="flex w-full flex-col gap-y-4">
-            <div  className="flex gap-x-4">
-            <label >
-                <p  className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
-                    First Name <sup className="text-pink-200">*</sup></p>
-                <input type="text" required 
+    // Save signup details for use after OTP verification
+    dispatch(setSignupData(signupData))
+
+    // Send OTP verification email
+    dispatch(sendOtp(formData.email, navigate))
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmpassword: "",
+    })
+
+    setShowPassword(false)
+    setShowConfirmPassword(false)
+  }
+
+  const tabData = [
+    {
+      id: 1,
+      tabName: "Student",
+      type: ACCOUNT_TYPE.STUDENT,
+    },
+    {
+      id: 2,
+      tabName: "Instructor",
+      type: ACCOUNT_TYPE.INSTRUCTOR,
+    },
+  ]
+
+  const inputClass =
+    "w-full rounded-xl border border-white/10 bg-[#060a17]/90 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all duration-200 hover:border-white/20 focus:border-cyan-400 focus:bg-[#080e22] focus:ring-2 focus:ring-cyan-400/20"
+
+  const labelClass =
+    "text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 block"
+
+  const EyeButton = ({ visible, onClick, label }) => (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={visible ? `Hide ${label}` : `Show ${label}`}
+      className="absolute right-3 top-[34px] rounded-lg p-1.5 text-slate-400 transition hover:text-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
+    >
+      {visible ? <FaEye size={15} /> : <FaEyeSlash size={15} />}
+    </button>
+  )
+
+  return (
+    <div className="relative w-full text-white">
+      {/* Account type selector */}
+      <div className="mb-6 rounded-xl border border-white/[0.08] bg-white/[0.03] p-1">
+        <Tab
+          tabData={tabData}
+          field={accountType}
+          setField={setAccountType}
+        />
+      </div>
+
+      <form onSubmit={submitHandler} className="flex w-full flex-col gap-4">
+        {/* Names */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label className="block min-w-0">
+            <span className={labelClass}>
+              First Name <span className="text-cyan-400">*</span>
+            </span>
+            <div className="relative">
+              <HiOutlineUser className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-base text-slate-500" />
+              <input
+                type="text"
                 name="firstName"
-                onChange={ChangeHandler} 
-                placeholder="Enter your Firstname"
+                required
+                autoComplete="given-name"
                 value={formData.firstName}
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-                  }}
-                  className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
-                  />
-            </label>
+                onChange={ChangeHandler}
+                placeholder="John"
+                className={`${inputClass} pl-10`}
+              />
+            </div>
+          </label>
 
-            <label >
-                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Last Name <sup>*</sup></p>
-                <input type="text" required 
+          <label className="block min-w-0">
+            <span className={labelClass}>
+              Last Name <span className="text-cyan-400">*</span>
+            </span>
+            <div className="relative">
+              <HiOutlineUser className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-base text-slate-500" />
+              <input
+                type="text"
                 name="lastName"
-                onChange={ChangeHandler} 
-                placeholder="Enter your Lastname"
+                required
+                autoComplete="family-name"
                 value={formData.lastName}
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-                  }}
-                  className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"/>
-            </label>
+                onChange={ChangeHandler}
+                placeholder="Doe"
+                className={`${inputClass} pl-10`}
+              />
             </div>
-       
-
-            <label className="w-full" >
-                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Email Address<sup className="text-pink-200">*</sup></p>
-                <input type="email" required 
-                name="email"
-                onChange={ChangeHandler} 
-                placeholder="Enter your email Address"
-                value={formData.email}
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-                  }}
-                  className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"/>
-            </label>
-            
-            <div className="flex gap-x-4">
-            <label className="relative">
-                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Create Password<sup className="text-pink-200">*</sup></p>
-                <input type={showPassword?("text"):("password")} required 
-                name="password"
-                onChange={ChangeHandler} 
-                placeholder="new password"
-                value={formData.password} 
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-                  }}
-                  className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"/>
-                <span onClick={()=>SetShowPassword((prev)=>!prev)}
-                     className="absolute right-3 top-[38px] z-[10] cursor-pointer"> 
-                {showPassword?(<FaEye fontSize={24} fill="#AFB2BF" />):(<FaEyeSlash fontSize={24} fill="#AFB2BF" />)}
-                        </span>
-            </label>
-            <label className="relative">
-                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Confirm Password<sup className="text-pink-200">*</sup></p>
-                <input type="password" required 
-                name="confirmpassword"
-                onChange={ChangeHandler} 
-                placeholder="confirm password"
-                value={formData.confirmpassword}
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-                  }}
-                  className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"/>
-                 <span onClick={()=>setShowConfirmPassword((prev)=>!prev)}
-                     className="absolute right-3 top-[38px] z-[10] cursor-pointer"> 
-                            {showConfirmPassword?(<FaEye fontSize={24} fill="#AFB2BF"/>):(<FaEyeSlash fontSize={24} fill="#AFB2BF" />)}
-                        </span>
-            </label>
-            </div>
-          
-          <button 
-          type="submit"
-          className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
-          >
-            Create button</button>
-         
-        </form>
-        
+          </label>
         </div>
 
+        {/* Email */}
+        <label className="block">
+          <span className={labelClass}>
+            Email Address <span className="text-cyan-400">*</span>
+          </span>
+          <div className="relative">
+            <HiOutlineMail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-lg text-slate-500" />
+            <input
+              type="email"
+              name="email"
+              required
+              autoComplete="email"
+              value={formData.email}
+              onChange={ChangeHandler}
+              placeholder="you@example.com"
+              className={`${inputClass} pl-10`}
+            />
+          </div>
+        </label>
 
+        {/* Passwords */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label className="relative block min-w-0">
+            <span className={labelClass}>
+              Password <span className="text-cyan-400">*</span>
+            </span>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              required
+              autoComplete="new-password"
+              value={formData.password}
+              onChange={ChangeHandler}
+              placeholder="Create password"
+              className={`${inputClass} pr-11`}
+            />
+            <EyeButton
+              visible={showPassword}
+              onClick={() => setShowPassword((prev) => !prev)}
+              label="password"
+            />
+          </label>
 
+          <label className="relative block min-w-0">
+            <span className={labelClass}>
+              Confirm <span className="text-cyan-400">*</span>
+            </span>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmpassword"
+              required
+              autoComplete="new-password"
+              value={formData.confirmpassword}
+              onChange={ChangeHandler}
+              placeholder="Confirm password"
+              className={`${inputClass} pr-11`}
+            />
+            <EyeButton
+              visible={showConfirmPassword}
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              label="confirm password"
+            />
+          </label>
+        </div>
 
-  // new wala
+        {/* Password match hint */}
+        {confirmpassword.length > 0 && (
+          <p
+            className={`text-xs ${
+              password === confirmpassword
+                ? "text-emerald-300"
+                : "text-rose-300"
+            }`}
+          >
+            {password === confirmpassword
+              ? "✓ Passwords match"
+              : "Passwords do not match yet"}
+          </p>
+        )}
 
-  // 
-    )
+        {/* Submit */}
+        <button
+          type="submit"
+          className="group relative mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 py-3 text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+        >
+          <span>Create Account</span>
+          <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
+        </button>
+      </form>
+    </div>
+  )
 }
 
 export default Signupform

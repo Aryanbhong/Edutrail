@@ -1,141 +1,89 @@
-// import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// import { getPasswordResetToken } from "../services/opreations/authApis";
-
-// //
-// const ForgotPassword=()=>{
-//     const {loading} = useSelector((state)=> state.auth);
-//     const [email, setEmail] = useState("");
-//     const [emailSent, SetEmailSent] = useState(false);
-//     const dispatch = useDispatch()
-
-//     const handleSubmit =(e)=>{
-//         e.preventDefault();
-//         dispatch(getPasswordResetToken(email,SetEmailSent))
-//     }
-//     return(
-//         <div>
-//           {
-//             loading ? ( 
-//                 <div> Loading........</div>
-//             ):(
-//                 <div>
-//                     <h1>
-//                         {
-//                             !emailSent ? "Reset your Password" :" Check your mail"
-//                         }
-//                     </h1>
-//                     <p>
-//                         {
-//                             !emailSent ? "Have no fear. we'll email you instructions to reset your password if you don't have access to your email we can try account recovery"
-//                             :`We have sent the reset email to ${email}`
-//                         }
-//                     </p>
-//                     <form onSubmit={handleSubmit}>
-//                         {
-//                             !emailSent && (
-//                                 <label>
-//                                     <p>Email Address</p>
-//                                     <input  required 
-//                                     type="email"
-//                                     name="email"
-//                                     value={email}
-//                                     onChange={(e)=>setEmail(e.target.value)}
-//                                     placeholder="Enter your Email Address"/>
-//                                 </label>
-//                             )
-//                         }
-//                         <button>
-//                             {
-//                                 !emailSent? "Reset Password" : "Resend Email"
-//                             }
-//                         </button>
-//                     </form>
-
-//                     <div>
-//                         <Link to="/login">
-//                         <p> Back To Login</p>
-//                         </Link>
-//                     </div>
-//                 </div>
-//             )
-//           }
-//         </div>
-//     )
-// }
-
-
-// export default ForgotPassword
-
-
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getPasswordResetToken } from "../services/opreations/authApis";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import { getPasswordResetToken } from "../services/opreations/authApis"
+import { HiOutlineMail } from "react-icons/hi"
+import { FaArrowLeft } from "react-icons/fa"
 
 const ForgotPassword = () => {
-  const { loading } = useSelector((state) => state.auth);
-  const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
-  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth)
+  const [email, setEmail] = useState("")
+  const [emailSent, setEmailSent] = useState(false)
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(getPasswordResetToken(email, setEmailSent));
-  };
+    e.preventDefault()
+    dispatch(getPasswordResetToken(email, setEmailSent))
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-richblack-900 px-4">
+    <div className="relative flex items-center justify-center min-h-[calc(100vh-4rem)] bg-[#050816] px-4 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-cyan-500/10 blur-[120px]" />
+
       {loading ? (
-        <div className="text-white text-xl">Loading...</div>
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-cyan-400/20 border-t-cyan-400" />
+          <p className="text-sm font-semibold text-cyan-300">Sending instructions...</p>
+        </div>
       ) : (
-        <div className="w-full max-w-md bg-richblack-800 p-8 rounded-lg shadow-md shadow-blue-500/10">
-          <h1 className="text-2xl font-bold text-white mb-2 text-center">
+        <div className="relative w-full max-w-md rounded-3xl border border-white/[0.1] bg-[#0b1224]/85 p-8 shadow-2xl backdrop-blur-2xl overflow-hidden">
+          {/* Top Hairline Glow */}
+          <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent shadow-[0_0_8px_#00f0ff]" />
+
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-center tracking-tight bg-gradient-to-r from-white via-cyan-100 to-cyan-400 text-transparent bg-clip-text drop-shadow-[0_0_12px_rgba(0,240,255,0.3)]">
             {emailSent ? "Check Your Mail" : "Reset Your Password"}
           </h1>
-          <p className="text-sm text-richblack-300 mb-6 text-center">
+
+          <p className="mt-3 text-xs sm:text-sm text-slate-300 text-center leading-relaxed">
             {emailSent
-              ? `We’ve sent a password reset email to ${email}`
-              : "We'll send you a link to reset your password. If you don’t have access to your email, try account recovery."}
+              ? `We have dispatched password recovery instructions to ${email}`
+              : "Enter your registered email address and we'll send you a secure link to reset your account credentials."}
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {!emailSent && (
-              <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-richblack-200 text-sm">
-                  Email Address
-                </label>
-                <input
-                  required
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full rounded-md bg-richblack-700 px-4 py-2 text-white placeholder:text-richblack-400 outline-none ring-1 ring-richblack-600 focus:ring-yellow-50"
-                />
-              </div>
+              <label className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  Email Address <span className="text-cyan-400">*</span>
+                </span>
+                <div className="relative">
+                  <HiOutlineMail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-lg text-slate-500" />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-white/10 bg-[#060a17]/90 pl-10 pr-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-cyan-400 focus:bg-[#080e22] focus:ring-2 focus:ring-cyan-400/20"
+                  />
+                </div>
+              </label>
             )}
 
             <button
               type="submit"
-              className="w-full py-2 px-4 rounded-md bg-yellow-50 text-richblack-900 font-semibold hover:bg-yellow-100 transition duration-200"
+              className="w-full rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 py-3 text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer"
             >
-              {emailSent ? "Resend Email" : "Reset Password"}
+              {emailSent ? "Resend Recovery Email" : "Send Reset Link"}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <Link to="/login" className="text-blue-400 hover:underline text-sm">
-              &larr; Back to Login
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-cyan-300 hover:text-cyan-200 transition-colors"
+            >
+              <FaArrowLeft className="text-xs" />
+              Back to Sign In
             </Link>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword

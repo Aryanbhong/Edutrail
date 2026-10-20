@@ -1,5 +1,5 @@
-import React from "react";
-import CTButton from "../Button";
+import React from "react"
+import CTButton from "../Button"
 
 const LearnData = [
   {
@@ -7,88 +7,97 @@ const LearnData = [
     heading: "Learning Made Simple for",
     colorText: " Everyone, Everywhere",
     description:
-      "EduTrail is designed to make learning straightforward and accessible. Whether you're a beginner or someone looking to brush up on concepts, we provide clear explanations and practical content that fits your schedule.",
-    BtnText: "Learn More",
-    BtnLink: "/",
+      "EduTrail is engineered to make technology learning straightforward, engaging, and directly applicable. Whether you are beginning your journey or advancing towards senior roles, we provide clear pathways that adapt to your ambitions.",
+    BtnText: "Explore Courses",
+    BtnLink: "/catalog/all",
   },
   {
     order: 1,
-    heading: "Beginner-Friendly Curriculum",
+    heading: "Beginner-Friendly Curriculums",
     description:
-      "Our courses are structured with simplicity in mind — easy to follow, jargon-free, and focused on helping you understand the 'why' behind what you learn.",
+      "Our learning paths break down complex engineering concepts into intuitive, digestible modules with zero confusing jargon.",
   },
   {
     order: 2,
-    heading: "Concept-Focused Learning",
+    heading: "Production-Grade Projects",
     description:
-      "We focus on delivering strong foundational understanding. Our goal is to help you build real knowledge, not just memorize facts.",
+      "Build real-world web, mobile, and backend applications that prove your capabilities to industry hiring teams.",
   },
   {
     order: 3,
-    heading: "Consistent Learning Support",
+    heading: "Direct Mentor Guidance",
     description:
-      "We may be small now, but we care deeply about our learners. If you're stuck or confused, we're here to listen and improve based on your feedback.",
+      "Get feedback from experienced software practitioners who have walked the path and know what it takes to succeed.",
   },
   {
     order: 4,
     heading: "Learn at Your Own Pace",
     description:
-      "No deadlines. No pressure. Just learning when you want, how you want. EduTrail lets you grow on your own terms.",
+      "No artificial deadlines or rigid schedules. Access lifetime coursework whenever your schedule allows.",
   },
   {
     order: 5,
-    heading: "Growing With You",
+    heading: "Continuously Evolving Content",
     description:
-      "We're continuously adding new topics, improving content, and building features — all based on what you need most as a learner.",
+      "Our curriculum adapts to current industry frameworks, tools, and developer standards so your skills remain cutting-edge.",
   },
-];
-
+]
 
 const GridLearning = () => {
-    return (
-      <div className="grid mx-auto w-[350px] xl:w-fit grid-cols-1 xl:grid-cols-4 mb-12">
-        {LearnData.map((card, i) => {
+  return (
+    <div className="grid mx-auto w-full max-w-6xl grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mb-12 gap-4">
+      {LearnData.map((card, i) => {
+        if (card.order < 0) {
           return (
             <div
               key={i}
-              className={`${i === 0 && "xl:col-span-2 xl:h-[294px]"}  ${
-                card.order % 2 === 1
-                  ? "bg-richblack-700 h-[294px]"
-                  : card.order % 2 === 0
-                  ? "bg-richblack-800 h-[294px]"
-                  : "bg-transparent"
-              } ${card.order === 3 && "xl:col-start-2"}  `}
+              className="xl:col-span-2 flex flex-col justify-between p-6 sm:p-8 rounded-3xl border border-white/[0.08] bg-[#0b1224]/50 backdrop-blur-xl"
             >
-              {card.order < 0 ? (
-                <div className="xl:w-[90%] flex flex-col gap-3 pb-10 xl:pb-0">
-                  <div className="text-4xl font-semibold ">
-                    {card.heading}
-                    <span className="text-blue-400">{card.colorText}</span>
-                  </div>
-                  <p className="text-richblack-300 font-medium">
-                    {card.description}
-                  </p>
-  
-                  <div className="w-fit mt-2">
-                    <CTButton active={true} linkto={card.BtnLink}>
-                      {card.BtnText}
-                    </CTButton>
-                  </div>
-                </div>
-              ) : (
-                <div className="p-8 flex flex-col gap-8">
-                  <h1 className="text-richblack-5 text-lg">{card.heading}</h1>
-  
-                  <p className="text-richblack-300 font-medium">
-                    {card.description}
-                  </p>
-                </div>
-              )}
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                  {card.heading}
+                  <span className="bg-gradient-to-r from-cyan-300 via-sky-300 to-indigo-400 text-transparent bg-clip-text drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]">
+                    {card.colorText}
+                  </span>
+                </h2>
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-300">
+                  {card.description}
+                </p>
+              </div>
+
+              <div className="mt-6 w-fit">
+                <CTButton active={true} linkto={card.BtnLink}>
+                  {card.BtnText}
+                </CTButton>
+              </div>
             </div>
-          );
-        })}
-      </div>
-    );
-  };
-  
-  export default GridLearning;
+          )
+        }
+
+        return (
+          <div
+            key={i}
+            className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl border border-white/[0.08] bg-[#0b1224]/70 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(0,240,255,0.15)]"
+          >
+            <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent group-hover:via-cyan-400 transition-all" />
+
+            <div>
+              <div className="w-8 h-8 rounded-xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 flex items-center justify-center text-xs font-bold mb-4">
+                0{card.order}
+              </div>
+              <h3 className="text-lg font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                {card.heading}
+              </h3>
+            </div>
+
+            <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-300">
+              {card.description}
+            </p>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export default GridLearning

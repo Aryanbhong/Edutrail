@@ -1,17 +1,13 @@
-import React from "react";
-import { useState } from "react";
-import { FaEye,FaEyeSlash } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { login } from "../services/opreations/authApis";
+import React, { useState } from "react"
+import { FaEye, FaEyeSlash, FaArrowRight } from "react-icons/fa"
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { login } from "../services/opreations/authApis"
 
+const LoginForm = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-
-
-const LoginForm=()=>{
-     
-  const navigate= useNavigate();
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,52 +28,79 @@ const LoginForm=()=>{
     e.preventDefault()
     dispatch(login(email, password, navigate))
   }
-    return(
-     <form onSubmit={submitHandler}
-     className="mt-6 flex w-full flex-col gap-y-4">
-        <label className="w-full">
-            <p  className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Email Address <sup>*</sup></p>
-      
-        <input  required type="email" 
-        value={formData.email}
-        onChange={ChangeHandler}
-        placeholder="Enter email id"
-        name="email"
-        style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
-          />
-        
-         </label>
-       <label className="relative">
-            <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Password <sup className="text-pink-200">*</sup></p>
-       
-        <input  required 
-        type={showPassword?("text"):("password")}
-        value={formData.password}
-        onChange={ChangeHandler}
-        placeholder="Enter password"
-        name="password"
-        style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
-          /> 
-        
-        <span onClick={()=>setShowPassword((prev)=>!prev)}
-              className="absolute right-3 top-[38px] z-[10] cursor-pointer"> 
-            {showPassword?(<FaEye fontSize={24} fill="#AFB2BF" />):(<FaEyeSlash fontSize={24} fill="#AFB2BF" />)}
+
+  const inputStyles =
+    "w-full rounded-xl border border-white/10 bg-[#060a17]/90 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-cyan-400 focus:bg-[#080e22] focus:ring-2 focus:ring-cyan-400/20 hover:border-white/20"
+
+  return (
+    <form onSubmit={submitHandler} className="relative mt-6 flex w-full flex-col gap-y-4">
+      {/* Email */}
+      <label className="flex w-full flex-col gap-1.5">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          Email Address <span className="text-cyan-400">*</span>
         </span>
-        <Link to="/forgotpassword">
-        <p className="mt-1 ml-auto max-w-max text-xs text-blue-100 " >Forgot Password</p></Link>
-        <button type="submit"
-        className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900">
-            Sign in</button>
-         </label>
-        
-     </form>
-    )
+        <input
+          required
+          type="email"
+          autoComplete="email"
+          value={email}
+          onChange={ChangeHandler}
+          placeholder="you@example.com"
+          name="email"
+          className={inputStyles}
+        />
+      </label>
+
+      {/* Password */}
+      <div className="flex w-full flex-col gap-1.5">
+        <label htmlFor="login-password" className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          Password <span className="text-cyan-400">*</span>
+        </label>
+
+        <div className="relative">
+          <input
+            id="login-password"
+            required
+            type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
+            value={password}
+            onChange={ChangeHandler}
+            placeholder="Enter your password"
+            name="password"
+            className={`${inputStyles} pr-12`}
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-400 transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+          >
+            {showPassword ? <FaEye size={16} /> : <FaEyeSlash size={16} />}
+          </button>
+        </div>
+
+        {/* Forgot password */}
+        <div className="flex justify-end pt-1">
+          <Link
+            to="/forgotpassword"
+            className="text-xs font-medium text-cyan-300 transition-colors hover:text-cyan-200 hover:underline"
+          >
+            Forgot Password?
+          </Link>
+        </div>
+      </div>
+
+      {/* Sign in */}
+      <button
+        type="submit"
+        className="group relative mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 py-3 text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+      >
+        <span>Sign In to EduTrail</span>
+        <FaArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
+      </button>
+    </form>
+  )
 }
 
 export default LoginForm

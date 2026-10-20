@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.homepage_bg{
-    background: url(".homepage_bg");
+/* Custom App specific styles */
+.homepage_bg {
+  background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.08) 0%, rgba(5, 8, 22, 0.95) 70%);
 }

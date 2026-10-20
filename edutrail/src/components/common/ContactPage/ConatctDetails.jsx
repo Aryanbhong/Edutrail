@@ -6,43 +6,44 @@ import * as Icon2 from "react-icons/io5"
 const contactDetails = [
   {
     icon: "HiChatBubbleLeftRight",
-    heading: "Chat on us",
-    description: "Our friendly team is here to help.",
-    details: "EduTrail@byaryan.com",
+    heading: "Chat With Us",
+    description: "Our dedicated support team is here to assist.",
+    details: "support@edutrail.dev",
   },
   {
     icon: "BiWorld",
-    heading: "Visit us",
-    description: "Come and say hello at our office HQ.",
-    details:
-      "Civil Lines, MDR Mall, Chandrapur-442401",
+    heading: "Global Platform",
+    description: "Connect from anywhere across the globe.",
+    details: "EduTrail Learning Network",
   },
   {
     icon: "IoCall",
-    heading: "Call us",
-    description: "Mon - Fri From 8am to 5pm",
-    details: "+123 456 789",
+    heading: "Direct Line",
+    description: "Monday - Friday from 9am to 6pm IST.",
+    details: "+91 (0) 800-EDUTRAIL",
   },
 ]
 
 const ContactDetails = () => {
   return (
-    <div className="flex flex-col gap-6 rounded-xl bg-richblack-800 p-4 lg:p-6">
+    <div className="flex flex-col gap-5">
       {contactDetails.map((ele, i) => {
-        let Icon = Icon1[ele.icon] || Icon2[ele.icon] || Icon3[ele.icon]
+        const Icon = Icon1[ele.icon] || Icon2[ele.icon] || Icon3[ele.icon]
         return (
           <div
-            className="flex flex-col gap-[2px] p-3 text-sm text-richblack-200"
             key={i}
+            className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.025] p-4 backdrop-blur-xl transition-all duration-200 hover:border-cyan-400/30 hover:bg-cyan-950/20"
           >
-            <div className="flex flex-row items-center gap-3">
-              <Icon size={25} />
-              <h1 className="text-lg font-semibold text-richblack-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-950/40 text-cyan-300">
+                {Icon && <Icon size={18} />}
+              </div>
+              <h3 className="text-base font-bold text-white">
                 {ele?.heading}
-              </h1>
+              </h3>
             </div>
-            <p className="font-medium">{ele?.description}</p>
-            <p className="font-semibold">{ele?.details}</p>
+            <p className="text-xs text-slate-400 pl-12">{ele?.description}</p>
+            <p className="text-xs font-semibold text-cyan-300 pl-12">{ele?.details}</p>
           </div>
         )
       })}
@@ -51,5 +52,3 @@ const ContactDetails = () => {
 }
 
 export default ContactDetails
-
-

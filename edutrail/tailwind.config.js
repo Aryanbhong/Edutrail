@@ -5,15 +5,33 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-      fontFamily: {
-        inter: ["Inter", "sans-serif"],
-        "edu-sa": ["Edu SA Beginner", "cursive"],
-        mono: ["Roboto Mono", "monospace"],
-      },
+    fontFamily: {
+      inter: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+      sans: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+      "edu-sa": ["Edu SA Beginner", "cursive"],
+      mono: ["JetBrains Mono", "Roboto Mono", "monospace"],
+    },
+    extend: {
       colors: {
-        white: "#fff",
-        black: "#000",
-        transparent: "#ffffff00",
+        // Platform dark canvas & glass surfaces
+        edudark: {
+          950: "#030611",
+          900: "#050816",
+          850: "#070b1a",
+          800: "#0b1224",
+          750: "#0e172e",
+          700: "#14203d",
+          600: "#1f2f56",
+        },
+        // Neon accents
+        neon: {
+          cyan: "#00f0ff",
+          teal: "#14b8a6",
+          blue: "#3b82f6",
+          indigo: "#6366f1",
+          violet: "#8b5cf6",
+        },
+        // Legacy palette support so existing code remains stable
         richblack: {
           5: "#F1F2FF",
           25: "#DBDDEA",
@@ -41,20 +59,6 @@ export default {
           700: "#032833",
           800: "#01212A",
           900: "#001B22",
-        },
-        blue: {
-          5: "#EAF5FF",
-          25: "#B4DAEC",
-          50: "#7EC0D9",
-          100: "#47A5C5",
-          200: "#118AB2",
-          300: "#0F7A9D",
-          400: "#0C6A87",
-          500: "#0A5A72",
-          600: "#074B5D",
-          700: "#053B48",
-          800: "#022B32",
-          900: "#001B1D",
         },
         caribbeangreen: {
           5: "#C1FFFD",
@@ -126,15 +130,27 @@ export default {
           800: "#171717",
           900: "#141414",
         },
-
       },
-      extend: {
-        maxWidth: {
-          maxContent: "1260px",
-          maxContentTab: "650px"
-        },
+      maxWidth: {
+        maxContent: "1260px",
+        maxContentTab: "650px",
+      },
+      boxShadow: {
+        "neon-sm": "0 0 10px rgba(34, 211, 238, 0.35)",
+        "neon-md": "0 0 20px rgba(34, 211, 238, 0.45)",
+        "neon-lg": "0 0 35px rgba(34, 211, 238, 0.55)",
+        "neon-cyan": "0 0 25px rgba(0, 240, 255, 0.35)",
+        "glass-sm": "0 4px 16px rgba(0, 0, 0, 0.35)",
+        "glass-md": "0 8px 32px rgba(0, 0, 0, 0.45)",
+        "glass-lg": "0 16px 48px rgba(0, 0, 0, 0.6)",
+      },
+      backdropBlur: {
+        xs: "2px",
+      },
+      animation: {
+        "pulse-subtle": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
-    plugins: [],
-  };
-
+  },
+  plugins: [],
+};
