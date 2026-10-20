@@ -32,6 +32,7 @@ app.use(
     cors({
         origin:"http://localhost:5174",
         origin:"https://edutrail-1.onrender.com",
+        origin:"https://edutrail-0e8a.onrender.com",
         credentials:true,
     })
 )
