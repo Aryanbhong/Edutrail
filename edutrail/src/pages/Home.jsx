@@ -316,6 +316,7 @@
 // export default Home
 
 
+
 import React from "react"
 import { Link } from "react-router-dom"
 import { FaArrowAltCircleRight } from "react-icons/fa"
@@ -582,3 +583,67 @@ function EduTrail() {
                 <span className="inline-flex items-center gap-2">
                   Explore Full Catalog
                   <FaArrowAltCircleRight />
+                </span>
+              </CButton>
+            </div>
+          </div>
+
+          {/* Learning timeline */}
+          <div className="rounded-2xl border border-white/[0.07] bg-[#111114]/90 p-4 shadow-xl shadow-black/20 sm:rounded-3xl sm:p-8 lg:p-10">
+            <TimeLineSection />
+          </div>
+
+          {/* Language learning */}
+          <div className="mt-8 rounded-2xl border border-white/[0.07] bg-[#111114]/90 p-4 shadow-xl shadow-black/20 sm:mt-12 sm:rounded-3xl sm:p-8 lg:p-10">
+            <LanguageLearning />
+          </div>
+        </div>
+      </section>
+
+      {/* ================= INSTRUCTORS & REVIEWS ================= */}
+      <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24">
+        <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-indigo-500/[0.05] blur-[140px]" />
+
+        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-16">
+
+          {/* Instructor section */}
+          <div className="rounded-2xl border border-white/[0.07] bg-[#111114]/90 p-4 shadow-xl shadow-black/20 sm:rounded-3xl sm:p-8 lg:p-12">
+            <Instructor />
+          </div>
+
+          {/* Reviews */}
+          <div>
+            <div className="mb-10 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-violet-300">
+                Community Voices
+              </p>
+
+              <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+                Reviews from{" "}
+                <span className="bg-gradient-to-r from-violet-300 to-indigo-300 bg-clip-text font-normal text-transparent">
+                  Our Learners
+                </span>
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
+                Discover what learners have to say about their EduTrail journey.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/[0.07] bg-[#111114]/80 p-3 shadow-xl shadow-black/20 sm:rounded-3xl sm:p-6">
+              <ReviewSlider />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= FOOTER ================= */}
+      <Footer />
+    </main>
+  )
+}
+
+export default Home
+
+
+
