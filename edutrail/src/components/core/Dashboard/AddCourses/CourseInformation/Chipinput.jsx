@@ -107,6 +107,107 @@
 // }
 
 
+// import { useEffect, useState } from "react"
+// import { MdClose } from "react-icons/md"
+// import { useSelector } from "react-redux"
+
+// export default function ChipInput({
+//   label,
+//   name,
+//   placeholder,
+//   register,
+//   errors,
+//   setValue,
+//   getValues,
+// }) {
+//   const { editCourse, course } = useSelector((state) => state.course)
+//   const [chips, setChips] = useState([])
+
+//   useEffect(() => {
+//     if (editCourse) {
+//       // Safely parse tags if they arrive as an array or JSON string
+//       const initialTags = Array.isArray(course?.tag)
+//         ? course?.tag
+//         : typeof course?.tag === "string"
+//         ? JSON.parse(course?.tag)
+//         : []
+//       setChips(initialTags)
+//     }
+//     register(name, { required: true, validate: (value) => value.length > 0 })
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [])
+
+//   useEffect(() => {
+//     setValue(name, chips)
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [chips])
+
+//   const handleKeyDown = (event) => {
+//     if (event.key === "Enter" || event.key === ",") {
+//       event.preventDefault()
+//       const chipValue = event.target.value.trim()
+//       if (chipValue && !chips.includes(chipValue)) {
+//         const newChips = [...chips, chipValue]
+//         setChips(newChips)
+//         event.target.value = ""
+//       }
+//     }
+//   }
+
+//   const handleDeleteChip = (chipIndex) => {
+//     const newChips = chips.filter((_, index) => index !== chipIndex)
+//     setChips(newChips)
+//   }
+
+//   return (
+//     <div className="flex flex-col space-y-2">
+//       {/* Label */}
+//       <label className="text-xs sm:text-sm font-semibold tracking-wider text-slate-300 uppercase" htmlFor={name}>
+//         {label} <sup className="text-rose-400">*</sup>
+//       </label>
+
+//       {/* Chips Container */}
+//       <div className="flex w-full flex-wrap gap-2 rounded-xl border border-slate-700/80 bg-[#030712]/70 p-2 backdrop-blur-md focus-within:border-cyan-400 focus-within:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all duration-300">
+//         {/* Render Chips */}
+//         {chips.map((chip, index) => (
+//           <div
+//             key={index}
+//             className="flex items-center gap-x-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/60 px-3 py-1 text-xs font-semibold text-cyan-300 shadow-[0_0_10px_rgba(0,240,255,0.2)] animate-fadeIn"
+//           >
+//             <span>{chip}</span>
+//             <button
+//               type="button"
+//               className="p-0.5 rounded-full text-cyan-400 hover:text-rose-400 hover:bg-rose-950/40 transition-colors duration-200 focus:outline-none cursor-pointer"
+//               onClick={() => handleDeleteChip(index)}
+//             >
+//               <MdClose className="text-xs" />
+//             </button>
+//           </div>
+//         ))}
+
+//         {/* Input */}
+//         <input
+//           id={name}
+//           name={name}
+//           type="text"
+//           placeholder={chips.length === 0 ? placeholder : "Add tag..."}
+//           onKeyDown={handleKeyDown}
+//           className="flex-1 min-w-[140px] bg-transparent px-2 py-1 text-sm text-slate-100 placeholder-slate-500 outline-none"
+//         />
+//       </div>
+
+//       {/* Errors */}
+//       {errors[name] && (
+//         <span className="ml-1 text-xs font-semibold tracking-wide text-rose-400">
+//           {label} is required
+//         </span>
+//       )}
+//     </div>
+//   )
+// }
+
+
+
 import { useEffect, useState } from "react"
 import { MdClose } from "react-icons/md"
 import { useSelector } from "react-redux"
@@ -160,24 +261,24 @@ export default function ChipInput({
   }
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 font-sans">
       {/* Label */}
-      <label className="text-xs sm:text-sm font-semibold tracking-wider text-slate-300 uppercase" htmlFor={name}>
-        {label} <sup className="text-rose-400">*</sup>
+      <label className="text-xs font-semibold uppercase tracking-wider text-slate-300" htmlFor={name}>
+        {label} <sup className="text-white">*</sup>
       </label>
 
       {/* Chips Container */}
-      <div className="flex w-full flex-wrap gap-2 rounded-xl border border-slate-700/80 bg-[#030712]/70 p-2 backdrop-blur-md focus-within:border-cyan-400 focus-within:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all duration-300">
+      <div className="flex w-full flex-wrap gap-2 rounded-xl border border-white/[0.08] bg-[#121216] p-2 backdrop-blur-md focus-within:border-white/30 focus-within:bg-[#16161c] transition-all duration-200">
         {/* Render Chips */}
         {chips.map((chip, index) => (
           <div
             key={index}
-            className="flex items-center gap-x-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/60 px-3 py-1 text-xs font-semibold text-cyan-300 shadow-[0_0_10px_rgba(0,240,255,0.2)] animate-fadeIn"
+            className="flex items-center gap-x-1.5 rounded-full border border-white/[0.08] bg-[#0B0B0C] px-3 py-1 text-xs font-medium text-slate-200 animate-fadeIn"
           >
             <span>{chip}</span>
             <button
               type="button"
-              className="p-0.5 rounded-full text-cyan-400 hover:text-rose-400 hover:bg-rose-950/40 transition-colors duration-200 focus:outline-none cursor-pointer"
+              className="p-0.5 rounded-full text-[#9A9A9E] hover:text-white hover:bg-white/[0.08] transition-colors duration-200 focus:outline-none cursor-pointer"
               onClick={() => handleDeleteChip(index)}
             >
               <MdClose className="text-xs" />
@@ -192,7 +293,7 @@ export default function ChipInput({
           type="text"
           placeholder={chips.length === 0 ? placeholder : "Add tag..."}
           onKeyDown={handleKeyDown}
-          className="flex-1 min-w-[140px] bg-transparent px-2 py-1 text-sm text-slate-100 placeholder-slate-500 outline-none"
+          className="flex-1 min-w-[140px] bg-transparent px-2 py-1 text-sm text-white placeholder-[#9A9A9E] outline-none"
         />
       </div>
 
